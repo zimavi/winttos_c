@@ -38,12 +38,14 @@ void __attribute__((section(".entry"))) start(uint16_t bootDrive)
 
     //i686_ISR_RegisterHandler(0x80, HandleSyscallInt);
 
-    i686_InterruptSyscall_Initialize();
+    i686_IntSyscall_Initialize();
+    i686_Sysenter_Initialize();
 
     i686_IRQ_RegisterHandler(0, dummy_timer);
 
     const char* test = "Hello from syscall!!!!!\n\0";
     sys_write(1, test, strlen(test));
+    //sys_zero();
 end:
     for (;;);
 }

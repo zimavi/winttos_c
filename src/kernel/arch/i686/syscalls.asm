@@ -1,9 +1,9 @@
 section .text
 ;
-; void ASMCALL i686_Syscalls_Initialize();
+; void ASMCALL i686_Sysenter_Initialize();
 ;
-global i686_Syscalls_Initialize
-i686_Syscalls_Initialize:
+global i686_Sysenter_Initialize
+i686_Sysenter_Initialize:
     mov eax, 0x174  ; SYSENTER_CS_MSR
     mov edx, cs     ; Kernel's code segment
     xor ecx, ecx
@@ -33,6 +33,8 @@ sysenter_handler:
     push ecx
     push ebx
     push eax
+
+    call sysenter_handler
     
     add esp, 24                 ; poping all variables (cdecl cleaning up)
 
@@ -53,7 +55,8 @@ sys_zero:
     xor eax, eax
 
     int 0x80
-    
+    ;sysenter            ; DOESNT WORK!
+
     pop eax
     ret
 
