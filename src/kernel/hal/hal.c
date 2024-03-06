@@ -14,5 +14,8 @@ void HAL_Initialize()
     i686_IRQ_Initialize();
     //i686_PIT_Initialize();
 
-    i686_Keyboard_Initialize();
+    //
+    // FIXME:
+    // - Wrong keyboard mapping
+    //i686_Keyboard_Initialize();
 }
